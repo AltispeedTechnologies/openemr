@@ -154,9 +154,9 @@ EOF;
     }
     foreach ($durationh as $i => $val) {
         if (
-            !is_numeric($durationh[$i]) || !is_numeric($durationm[$i]) ||
-            !is_numeric($event_repeat_freq[$i]) ||
-            !is_numeric($event_repeat_on_freq[$i]) || !is_numeric($end_date_freq[$i])
+            !is_numeric($durationh[$i]) || !is_numeric($durationm[$i])// ||
+            //!is_numeric($event_repeat_freq[$i]) ||
+            //!is_numeric($event_repeat_on_freq[$i]) || !is_numeric($end_date_freq[$i])
         ) {
             $output->Text(postcalendar_admin_categories(
                 $msg,
