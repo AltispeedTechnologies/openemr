@@ -895,6 +895,13 @@ $GLOBALS_METADATA = [
             xl('Removes support for prescriptions')
         ],
 
+        'addrbook_require_npi' => [
+            xl('Require NPI on Address Book persons'),
+            'bool',
+            '1',
+            xl('Require a valid National Provider Identifier when saving an external person in the Address Book. NPI is the US HIPAA identifier issued by CMS/NPPES; it is not used outside the United States and is not tied to UI language. Turn this off for non-US sites. New installs default on. Upgrades insert the setting off and leave it off.')
+        ],
+
         'text_templates_enabled' => [
             xl('Enable Text Templates in Encounter Forms'),
             'bool',                           // data type
@@ -1390,6 +1397,101 @@ $GLOBALS_METADATA = [
             xl('Patient statements can be generated as plain text or with a modern graphical appearance.')
         ],
 
+        'statement_envelope' => [
+            xl('Statement envelope'),
+            [
+                'default' => xl('None'),
+                'hash9' => xl('#9 double-window'),
+                'hash10' => xl('#10 double-window'),
+                'custom' => xl('Custom')
+            ],
+            'default',
+            xl('Fits printed and PDF statements to a double-window envelope. None keeps the stock layout and the physical remit address. Portal statements stay on screen and are not windowed. The plain-text window positions are for the PDF download; a printer has its own offsets. #9 and #10 are US letter cuts. The folded sheet is taken to rest on the bottom of the envelope, so a #9 sheet can sit about 7/32 in below the flap. The PDF uses the paper size in Globals. A site that still has its own statement.inc.php is not moved into the windows. Custom measurements that are blank or do not fit are refused instead of printing the stock layout.')
+        ],
+
+        'statement_envelope_help' => [
+            xl('Statement envelope help'),
+            GlobalSetting::DATA_TYPE_HTML_DISPLAY_SECTION,
+            '',
+            '',
+            [
+                GlobalSetting::DATA_TYPE_OPTION_RENDER_CALLBACK => \OpenEMR\Billing\StatementEnvelopeGlobalConfig::renderCustomFields(...)
+            ],
+        ],
+
+        'statement_env_units' => [
+            xl('Envelope units'),
+            [
+                'in' => xl('Inches'),
+                'cm' => xl('Centimeters'),
+            ],
+            'in',
+            xl('Units on the carton.')
+        ],
+
+        'statement_env_height' => [
+            xl('Envelope height'),
+            'text',
+            '3-7/8',
+            xl('Flap-up height.')
+        ],
+
+        'statement_env_return_height' => [
+            xl('Return height'),
+            'text',
+            '1-3/16',
+            xl('Return window height.')
+        ],
+
+        'statement_env_return_width' => [
+            xl('Return width'),
+            'text',
+            '3-1/2',
+            xl('Return window width.')
+        ],
+
+        'statement_env_return_left' => [
+            xl('Return from left'),
+            'text',
+            '3/8',
+            xl('Return window, from left.')
+        ],
+
+        'statement_env_return_bottom' => [
+            xl('Return from bottom'),
+            'text',
+            '2',
+            xl('Return window, from bottom.')
+        ],
+
+        'statement_env_to_height' => [
+            xl('Patient height'),
+            'text',
+            '1',
+            xl('Patient window height.')
+        ],
+
+        'statement_env_to_width' => [
+            xl('Patient width'),
+            'text',
+            '4',
+            xl('Patient window width.')
+        ],
+
+        'statement_env_to_left' => [
+            xl('Patient from left'),
+            'text',
+            '3/8',
+            xl('Patient window, from left.')
+        ],
+
+        'statement_env_to_bottom' => [
+            xl('Patient from bottom'),
+            'text',
+            '1/2',
+            xl('Patient window, from bottom.')
+        ],
+
         'billing_phone_number' => [
             xl('Custom Billing Phone Number'),
             'text',                           // data type
@@ -1542,6 +1644,13 @@ $GLOBALS_METADATA = [
             'bool',                           // data type
             '0',                              // default = false
             xl('For sending claims directly to insurance company, based on X12 Partner Settings')
+        ],
+
+        'gbl_hold_claims_that_will_deny' => [
+            xl('Hold Claims That Will Deny'),
+            'bool',                           // data type
+            '0',                              // default = false
+            xl('Leave a claim out of the 837 and do not mark it billed when the log says the payer will deny it. Off still sends the claim and writes the log. The billing or service facility ZIP is the denial this covers. A pay-to warning does not hold the claim.')
         ],
 
         'auto_sftp_claims_to_x12_partner' => [
@@ -2836,10 +2945,23 @@ $GLOBALS_METADATA = [
         'audit_events_query' => [
             xl('Audit Logging SELECT Query'),
             'bool',                           // data type
-            '0',                              // default off; enable for ONC certified deployments
-            xl('Enable logging of all SQL SELECT queries.') . ' (' . xl('Note that Audit Logging needs to be enabled above') . ')'
-                . ' ' . xl('Required for ONC certified deployments.')
-                . ' ' . xl('Warning: this logs every SELECT, so the audit log grows with query volume and can become far larger than the clinical data it describes.')
+            '0',                              // off. Certification records the user action, not each SELECT.
+            xl('Enable logging of SQL SELECT queries.') . ' (' . xl('Note that Audit Logging needs to be enabled above') . ')'
+                . ' ' . xl('Leave this off unless a site needs a record of reads. Certification records who did what, not each SQL statement.')
+                . ' ' . xl('When this is on, the detail setting writes one summary per user action, or a row for every SELECT.')
+                . ' ' . xl('A row for every SELECT grows with query volume and can become far larger than the clinical data.')
+        ],
+
+        'audit_events_query_mode' => [
+            xl('Audit Logging SELECT Detail'),
+            [
+                'request' => xl('One summary per user action'),
+                'statement' => xl('Every SELECT statement'),
+            ],
+            'request',                        // one summary unless an administrator asks for every statement
+            xl('Applies when SELECT logging is on.')
+                . ' ' . xl('One summary per user action records who, when, the patient, the page, and the tables read.')
+                . ' ' . xl('Every SELECT statement also keeps the query text. Use that to find a page that runs too many queries. It is not required for certification.')
         ],
 
         'audit_events_cdr' => [
