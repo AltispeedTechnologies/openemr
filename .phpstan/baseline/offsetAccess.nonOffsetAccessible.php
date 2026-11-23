@@ -23487,186 +23487,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../interface/therapy_groups/therapy_groups_views/listGroups.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'abook_type\' on mixed\\.$#',
-    'count' => 3,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'assistant\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'city\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'city2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'country_code\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'cpoe\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'email\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'email_direct\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'fax\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'federaltaxid\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'fname\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'lname\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'mname\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'notes\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'npi\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'organization\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'phone\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'phonecell\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'phonew1\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'phonew2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'specialty\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'state\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'state2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'street\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'street2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'streetb\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'streetb2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'suffix\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'taxonomy\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'title\' on mixed\\.$#',
-    'count' => 2,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'upin\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'url\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'username\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'valedictory\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'zip\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'zip2\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Cannot access offset \'city\' on mixed\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../interface/usergroup/facilities.php',
@@ -31663,7 +31483,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'attn\' on array\\|false\\.$#',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31683,7 +31503,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'city\' on array\\|false\\.$#',
-    'count' => 6,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31748,7 +31568,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'name\' on array\\|false\\.$#',
-    'count' => 6,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31773,7 +31593,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'phone\' on array\\|false\\.$#',
-    'count' => 4,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31803,12 +31623,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'postal_code\' on array\\|false\\.$#',
-    'count' => 6,
-    'path' => __DIR__ . '/../../sites/default/statement.inc.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'provider_id\' on array\\|false\\.$#',
-    'count' => 2,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31828,17 +31643,17 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'state\' on array\\|false\\.$#',
-    'count' => 6,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'street\' on array\\|false\\.$#',
-    'count' => 6,
+    'count' => 3,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'to\' on mixed\\.$#',
-    'count' => 14,
+    'count' => 5,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -31863,22 +31678,22 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset 0 on mixed\\.$#',
-    'count' => 3,
+    'count' => 1,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset 1 on mixed\\.$#',
-    'count' => 3,
+    'count' => 1,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset 2 on mixed\\.$#',
-    'count' => 3,
+    'count' => 1,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset 3 on mixed\\.$#',
-    'count' => 3,
+    'count' => 1,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -32134,11 +31949,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'PatientPay\' on array\\|false\\.$#',
     'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingUtilities.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \'increment\' on array\\|false\\.$#',
-    'count' => 2,
     'path' => __DIR__ . '/../../src/Billing/BillingUtilities.php',
 ];
 $ignoreErrors[] = [
@@ -39073,11 +38883,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot access offset \'uuid\' on mixed\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/EmployerService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Cannot access offset \\(int\\|string\\) on mixed\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Services/EmployerService.php',
 ];

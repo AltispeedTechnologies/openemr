@@ -21,6 +21,7 @@ use OpenEMR\Common\Database\LayoutColumnUpdate;
 use OpenEMR\Common\Database\QueryUtils;
 use OpenEMR\Common\Forms\CoreFormToPortalUtility;
 use OpenEMR\Common\Forms\EncounterFormAccess;
+use OpenEMR\Common\Http\CurrentRequest;
 use OpenEMR\Common\Session\SessionWrapperFactory;
 use OpenEMR\Core\Header;
 use OpenEMR\Core\OEGlobalsBag;
@@ -37,6 +38,11 @@ if ($patientPortalSession) {
 }
 
 require_once "../../globals.php";
+$statement = CurrentRequest::get()->query->getString('statement');
+if ($statement !== '') {
+    \OpenEMR\Services\LBF\StatementEntry::dispatch($statement);
+    exit;
+}
 require_once "$srcdir/options.inc.php";
 require_once OEGlobalsBag::getInstance()->getProjectDir() . '/custom/code_types.inc.php';
 require_once "$srcdir/FeeSheetHtml.class.php";
@@ -376,14 +382,18 @@ if (
     if (!empty($newhistorydata)) {
         updateHistoryData($pid, $newhistorydata);
     }
-    // until more testing can be done to understand impact of sequential field saving (which demographics_save and new_comprehensive_save don't do),
-    // we will handle the employer_data saving this way for now.
-    if (!empty($newPatientData)) {
-        if (!OEGlobalsBag::getInstance()->getBoolean('omit_employers')) {
-            updateEmployerData($pid, [
-                'occupation' => $newPatientData['occupation']
-                ,'industry' => $newPatientData['industry']
-            ]);
+    // Occupation and industry on the patient form are mirrored onto employer_data.
+    // Any other patient field must not blank those columns.
+    if (!OEGlobalsBag::getInstance()->getBoolean('omit_employers')) {
+        $employerUpdate = [];
+        if (array_key_exists('occupation', $newPatientData)) {
+            $employerUpdate['occupation'] = $newPatientData['occupation'];
+        }
+        if (array_key_exists('industry', $newPatientData)) {
+            $employerUpdate['industry'] = $newPatientData['industry'];
+        }
+        if ($employerUpdate !== []) {
+            updateEmployerData($pid, $employerUpdate);
         }
     }
 
