@@ -17,6 +17,7 @@
 namespace OpenEMR\Billing\BillingProcessor;
 
 use OpenEMR\BC\ServiceContainer;
+use OpenEMR\Common\Database\QueryUtils;
 use OpenEMR\Core\OEGlobalsBag;
 use OpenEMR\Services\BaseService;
 use phpseclib3\Net\SFTP;
@@ -193,9 +194,14 @@ class X12RemoteTracker extends BaseService
         $sql = " INSERT INTO x12_remote_tracker SET ";
         $sql .= $setQueryPart['set'];
 
-        $results = sqlInsert(
+        $bind = $setQueryPart['bind'];
+        if (!is_array($bind)) {
+            throw new \RuntimeException('Tracker insert bindings were not a list');
+        }
+
+        $results = QueryUtils::sqlInsert(
             $sql,
-            $setQueryPart['bind']
+            $bind
         );
 
         return $results;

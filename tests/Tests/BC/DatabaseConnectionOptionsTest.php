@@ -552,6 +552,41 @@ PHP
         self::assertSame(['ca' => $certDir . '/mysql-ca'], $ssl);
     }
 
+    public function testForgetReadsTheSqlconfWrittenLater(): void
+    {
+        $dir = sys_get_temp_dir() . '/oe-sqlconf-' . bin2hex(random_bytes(4));
+        mkdir($dir);
+        try {
+            $this->writeSqlconf($dir, 'first_db');
+            self::assertSame('first_db', DatabaseConnectionOptions::forSite($dir)->dbname);
+
+            $this->writeSqlconf($dir, 'second_db');
+            self::assertSame('first_db', DatabaseConnectionOptions::forSite($dir)->dbname);
+
+            DatabaseConnectionOptions::forget($dir);
+            self::assertSame('second_db', DatabaseConnectionOptions::forSite($dir)->dbname);
+        } finally {
+            $this->cleanupTempDir($dir);
+        }
+    }
+
+    private function writeSqlconf(string $dir, string $dbase): void
+    {
+        $contents = <<<PHP
+<?php
+\$sqlconf = [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'login' => 'user',
+    'pass' => 'secret',
+    'dbase' => '$dbase',
+];
+PHP;
+        if (file_put_contents($dir . '/sqlconf.php', $contents) === false) {
+            self::fail('The test sqlconf could not be written.');
+        }
+    }
+
     private function cleanupTempDir(string $dir): void
     {
         // Filesystem::remove() deletes symlinks without following them, so a

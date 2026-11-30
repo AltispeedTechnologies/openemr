@@ -28,7 +28,7 @@ class X125010837P
     /**
      * Billing-provider ZIP, loop 2010AA. The 837P guide requires 9 digits for a US address.
      */
-    private const BILLING_ZIP_LOG = '*** Billing facility zip is not 9 digits. '
+    public const BILLING_ZIP_LOG = '*** Billing facility zip is not 9 digits. '
         . '837P loop 2010AA requires a 9-digit ZIP for US addresses; payers may reject the claim.';
 
     /**
@@ -49,7 +49,7 @@ class X125010837P
     /**
      * Service-facility ZIP, loop 2310C. The 837P guide requires 9 digits for a US address.
      */
-    private const SERVICE_ZIP_LOG = '*** Service facility zip is not 9 digits. '
+    public const SERVICE_ZIP_LOG = '*** Service facility zip is not 9 digits. '
         . '837P loop 2310C requires a 9-digit ZIP for US addresses; payers may reject the claim.';
 
     /**
@@ -89,7 +89,8 @@ class X125010837P
      * Build one X12 5010 837P claim.
      *
      * The billing pay-to provider HL argument was removed until the generators support it.
-     * The last argument is the patient segment count.
+     * The patient segment count is followed by the payer whose ZIP is checked.
+     * On success the renderer replaces the denial argument.
      *
      * @param mixed $pid
      * @param mixed $encounter
@@ -100,6 +101,8 @@ class X125010837P
      * @param mixed $HLcount
      * @param mixed $edicount
      * @param mixed $patSegmentCount
+     * @param string|null $payerId Payer whose facility ZIP is checked. Null keeps the claim payer.
+     * @param FacilityZipDenial|null $zipDenial Filled with the denial result on success.
      * @return string
      */
     public static function genX12837P(
@@ -112,12 +115,15 @@ class X125010837P
         $HLcount = 0,
         &$edicount = 0,
         &$patSegmentCount = 0,
-        ?string $payerId = null
+        ?string $payerId = null,
+        ?FacilityZipDenial &$zipDenial = null
     ) {
         // removed $HLBillingPayToProvider until it's supported in the generators
         $today = time();
         $out = '';
         $claim = new Claim($pid, $encounter, $x12_partner, $payerId);
+        $billingZipDenies = false;
+        $serviceZipDenies = false;
 
         // Name the claim in the billing log as the HCFA and 837I generators do.
         $claimId = (is_int($pid) || is_string($pid) ? $pid : '') . '-'
@@ -361,6 +367,7 @@ class X125010837P
             // X12 requires a 9 digit zip in loop 2010AA but we output it anyways
             if (self::nineDigitZipApplies($claim->billingFacilityCountry(), (string) $claim->billingFacilityZip())) {
                 $log .= self::BILLING_ZIP_LOG . "\n";
+                $billingZipDenies = true;
             }
             if (self::foreignPostalLosesLetters($claim->billingFacilityCountry(), $claim->billingFacilityPostalCode())) {
                 $log .= self::BILLING_POSTAL_LOSS_LOG . "\n";
@@ -1114,6 +1121,7 @@ class X125010837P
             $out .= "*";
             if (self::nineDigitZipApplies($claim->facilityCountry(), (string) $claim->facilityZip())) {
                 $log .= self::SERVICE_ZIP_LOG . "\n";
+                $serviceZipDenies = true;
             }
             if (self::foreignPostalLosesLetters($claim->facilityCountry(), $claim->facilityPostalCode())) {
                 $log .= self::SERVICE_POSTAL_LOSS_LOG . "\n";
@@ -1741,6 +1749,8 @@ class X125010837P
         $out = preg_replace('/\*+~/', '~', $out) ?? $out;
 
         $log .= "\n";
+        $zipDenial = new FacilityZipDenial($billingZipDenies, $serviceZipDenies);
+
         return $out;
     }
 
@@ -1794,5 +1804,15 @@ class X125010837P
     private static function isUnitedStates(string $letters): bool
     {
         return in_array($letters, self::UNITED_STATES_POSTAL, true);
+    }
+
+    /**
+     * True when the log text contains a billing or service ZIP warning.
+     * The hold does not call this. That log also contains the patient name.
+     */
+    public static function logShowsDenial(string $log): bool
+    {
+        return str_contains($log, self::BILLING_ZIP_LOG)
+            || str_contains($log, self::SERVICE_ZIP_LOG);
     }
 }

@@ -1618,7 +1618,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot cast mixed to string\\.$#',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../../interface/usergroup/addrbook_edit.php',
 ];
 $ignoreErrors[] = [
@@ -2328,7 +2328,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot cast mixed to string\\.$#',
-    'count' => 27,
+    'count' => 21,
     'path' => __DIR__ . '/../../sites/default/statement.inc.php',
 ];
 $ignoreErrors[] = [
@@ -2343,7 +2343,7 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
     'message' => '#^Cannot cast mixed to string\\.$#',
-    'count' => 2,
+    'count' => 1,
     'path' => __DIR__ . '/../../sql_upgrade.php',
 ];
 $ignoreErrors[] = [
@@ -3261,5 +3261,3 @@ $ignoreErrors[] = [
     'count' => 2,
     'path' => __DIR__ . '/../../tests/Tests/Unit/ClinicalDecisionRules/CommonTest.php',
 ];
-
-return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

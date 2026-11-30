@@ -49,20 +49,21 @@ class DatabaseConnectionFactory
         }
 
         $conn->port = $config->port;
-        if ($persistent) {
-            $conn->PConnect(
+        $connected = $persistent
+            ? $conn->PConnect(
+                argHostname: $config->host,
+                argUsername: $config->user,
+                argPassword: $config->password,
+                argDatabaseName: $config->dbname,
+            )
+            : $conn->Connect(
                 argHostname: $config->host,
                 argUsername: $config->user,
                 argPassword: $config->password,
                 argDatabaseName: $config->dbname,
             );
-        } else {
-            $conn->Connect(
-                argHostname: $config->host,
-                argUsername: $config->user,
-                argPassword: $config->password,
-                argDatabaseName: $config->dbname,
-            );
+        if ($connected !== true) {
+            throw new RuntimeException('The database connection failed.');
         }
 
         $conn->ExecuteNoLog("SET NAMES '$config->charset'");

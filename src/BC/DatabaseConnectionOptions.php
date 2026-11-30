@@ -96,6 +96,20 @@ final readonly class DatabaseConnectionOptions
         $this->charset = 'utf8mb4';
     }
 
+    public function withCredentials(string $user, #[\SensitiveParameter] string $password): self
+    {
+        return new self(
+            dbname: $this->dbname,
+            user: $user,
+            password: $password,
+            host: $this->host,
+            port: $this->port,
+            unixSocket: $this->unixSocket,
+            sslCaPath: $this->sslCaPath,
+            sslClientCert: $this->sslClientCert,
+        );
+    }
+
     /**
      * Creates options for a site by loading its sqlconf.php file.
      *
@@ -110,13 +124,36 @@ final readonly class DatabaseConnectionOptions
     public static function forSite(
         string $siteDir,
     ): self {
-        /** @var array<string, self> $bySite */
-        static $bySite = [];
+        $cache = &self::siteCache();
 
-        return $bySite[$siteDir] ??= self::fromSqlconf(
+        return $cache[$siteDir] ??= self::fromSqlconf(
             self::loadSqlconf($siteDir),
             self::inferSslPaths($siteDir),
         );
+    }
+
+    /**
+     * Drop a cached read so the next caller loads sqlconf.php again.
+     *
+     * The installer writes that file after other code in the same request
+     * may already have read the previous copy. Access control then has to
+     * see the account that was just written.
+     */
+    public static function forget(string $siteDir): void
+    {
+        $cache = &self::siteCache();
+        unset($cache[$siteDir]);
+    }
+
+    /**
+     * @return array<string, self>
+     */
+    private static function &siteCache(): array
+    {
+        /** @var array<string, self> $bySite */
+        static $bySite = [];
+
+        return $bySite;
     }
 
     /**
